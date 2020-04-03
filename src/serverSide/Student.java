@@ -52,11 +52,13 @@ public class Student {
 		completedCourses.add(c);
 	}
 
-	public void printRegistrations()
+	public String printRegistrations()
 	{
+		StringBuilder st = new StringBuilder();
 		for(Registration reg : studentRegList){
-			System.out.println(reg);
+			st.append(reg.toString() + "\n");
 		}
+		return st.toString();
 	}
 
 	public boolean checkIfCompleted(Course c)

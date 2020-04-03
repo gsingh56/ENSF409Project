@@ -14,13 +14,14 @@ public class RegistrationApp {
 		registrations = new ArrayList<Registration>();
 	}
 
-	public void displayCourseCatalogue(){
-		System.out.println(cat);
+	public CourseCatalogue displayCourseCatalogue(){
+		return cat;
 	}
 
-	public void searchCatalogue(String name, int num){
+	public String searchCatalogue(String name, int num){
 		Course c = cat.searchCat(name, num);
-		System.out.println((c == null ? "" : c));
+		String result = c == null ? "" : c.toString();
+		return result;
 	}
 
 	public Course checkCatalogue(String name, int num){
@@ -68,18 +69,18 @@ public class RegistrationApp {
 		}
 	}
 
-	public void addRegistration(Student st, Course c)
+	public Registration addRegistration(Student st, Course c)
 	{
 		if(!checkPrerequisites(st, c)){
-			return;
+			return null;
 		}
 		Registration reg = new Registration();
 		CourseOffering co = c.getCourseOfferingAt(0);
 		reg.completeRegistration(st, co);
-		System.out.println(reg);
 		registrations.add(reg);
 		c.addStudent();
 		c.isRunning();
+		return reg;
 	}
 
 	public void addStudent(String name, int id){

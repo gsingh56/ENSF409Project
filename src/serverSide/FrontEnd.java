@@ -25,6 +25,28 @@ public class FrontEnd implements Runnable
 		}
 		regApp = new RegistrationApp();
 	}
+	
+	//For testing
+	public void initialize()
+	{
+		regApp.addStudent("John", 1);
+		regApp.addStudent("Violet", 2);
+		regApp.addStudent("Karl", 3);
+		regApp.addStudent("Lara", 4);
+		regApp.addStudent("Kane", 5);
+		regApp.addStudent("Jude", 6);
+		regApp.addStudent("Adam", 7);
+		Course engg233 = regApp.checkCatalogue("ENGG", 233);
+		Student st = new Student ("Sarah", 8);
+		st.addCompletedCourse(engg233);
+		regApp.addStudent(st);
+		Course ensf409 = regApp.checkCatalogue("ENSF", 409);
+		Course phys259 = regApp.checkCatalogue("PHYS", 259);
+		regApp.createCourseOffering(engg233, 1, 100);
+		regApp.createCourseOffering(ensf409, 2, 50);
+		regApp.createCourseOffering(phys259, 3, 70);
+		ensf409.addPreReq(engg233);
+	}
 
 	private void displayMenu()
 	{
@@ -54,7 +76,7 @@ public class FrontEnd implements Runnable
 		try {
 			socketOut.println("Enter the course name:\0");
 			String name = socketIn.readLine();
-			socketOut.println("Enter the course number:");
+			socketOut.println("Enter the course number:\0");
 			int num = Integer.parseInt(socketIn.readLine());
 			regApp.searchCatalogue(name, num);
 		} catch (IOException e) {
@@ -66,21 +88,28 @@ public class FrontEnd implements Runnable
 	private void addCourse()
 	{
 		try {
-			socketOut.println("Enter student name:");
+			socketOut.println("Enter student name:\0");
 			String student = socketIn.readLine();
 			Student st = regApp.searchStudent(student);
 			if(st == null){
+				socketOut.println("Error student not found.");
 				return;
 			}
-			socketOut.println("Enter course name:");
+			socketOut.println("Enter course name:\0");
 			String name = socketIn.readLine();
-			socketOut.println("Enter course number:");
+			socketOut.println("Enter course number:\0");
 			int num = Integer.parseInt(socketIn.readLine());
 			Course course = regApp.checkCatalogue(name, num);
 			if(course == null){
+				socketOut.println("Error course not found.");
 				return;
 			}
-			regApp.addRegistration(st, course);
+			Registration reg = regApp.addRegistration(st, course);
+			if(reg == null) {
+				socketOut.println("Error adding course.");
+				return;
+			}
+			socketOut.println(reg);
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -90,15 +119,15 @@ public class FrontEnd implements Runnable
 	public void removeCourse()
 	{
 		try {
-			socketOut.println("Enter student name:");
+			socketOut.println("Enter student name:\0");
 			String student = socketIn.readLine();
 			Student st = regApp.searchStudent(student);
 			if(st == null){
 				return;
 			}
-			socketOut.println("Enter course name:");
+			socketOut.println("Enter course name:\0");
 			String name = socketIn.readLine();
-			socketOut.println("Enter course number:");
+			socketOut.println("Enter course number:\0");
 			int num = Integer.parseInt(socketIn.readLine());
 			Course course = regApp.checkCatalogue(name, num);
 			if(course == null){
@@ -114,13 +143,14 @@ public class FrontEnd implements Runnable
 	public void viewStudentCourses()
 	{
 		try {
-			socketOut.println("Enter student name:");
+			socketOut.println("Enter student name:\0");
 			String student = socketIn.readLine();
 			Student st = regApp.searchStudent(student);
 			if(st == null){
+				socketOut.println("Error student not found.");
 				return;
 			}
-			st.printRegistrations();
+			socketOut.println(st.printRegistrations());
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -148,7 +178,7 @@ public class FrontEnd implements Runnable
 						removeCourse();
 						break;
 					case 4:
-						regApp.displayCourseCatalogue();
+						socketOut.println(regApp.displayCourseCatalogue());
 						break;
 					case 5:
 						viewStudentCourses();
@@ -157,7 +187,7 @@ public class FrontEnd implements Runnable
 						System.exit(0);
 						break;
 					default:
-						System.err.println("Invalid input!!");
+						socketOut.println("Invalid input!!");
 						break;
 				}
 				enterToContinue();

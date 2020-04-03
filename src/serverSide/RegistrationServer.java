@@ -42,6 +42,7 @@ public class RegistrationServer {
 				threadPool.execute(theGame);*/
 				FrontEnd frontEnd = new FrontEnd(serverSocket.accept());
 				System.out.println("Server has established a connection.");
+				frontEnd.initialize();
 				threadPool.execute(frontEnd);
 			}
 		} catch (Exception e){
