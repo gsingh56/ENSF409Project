@@ -73,13 +73,16 @@ public class Course {
 		return st;
 	}
 
-	public void isRunning(){
+	public String isRunning(){
+		String result;
 		if(numEnrolled >= 8){
-			System.out.printf("%d students enrolled. Course is running.\n", numEnrolled);
+			result = numEnrolled + "students enrolled. Course is running.\n";
 		} else {
-			System.out.printf("Only %d student(s) are currently enrolled.\n", numEnrolled);
-			System.out.printf("Course will start running after %d more student(s) enroll.\n", 8 - numEnrolled);
+			result = "Only " + numEnrolled + " student(s) are currently enrolled.\n";
+			result += "Course will start running after " + (8 - numEnrolled) +
+					" more student(s) enroll.\n";
 		}
+		return result;
 	}
 
 	public CourseOffering getCourseOfferingAt(int i) {

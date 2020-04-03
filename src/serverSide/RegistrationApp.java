@@ -69,18 +69,18 @@ public class RegistrationApp {
 		}
 	}
 
-	public Registration addRegistration(Student st, Course c)
+	public String addRegistration(Student st, Course c)
 	{
 		if(!checkPrerequisites(st, c)){
-			return null;
+			return "Student does not have the prerequisites";
 		}
 		Registration reg = new Registration();
 		CourseOffering co = c.getCourseOfferingAt(0);
 		reg.completeRegistration(st, co);
 		registrations.add(reg);
 		c.addStudent();
-		c.isRunning();
-		return reg;
+		String result = c.isRunning() + reg.toString();
+		return result;
 	}
 
 	public void addStudent(String name, int id){

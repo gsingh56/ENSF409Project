@@ -104,12 +104,7 @@ public class FrontEnd implements Runnable
 				socketOut.println("Error course not found.");
 				return;
 			}
-			Registration reg = regApp.addRegistration(st, course);
-			if(reg == null) {
-				socketOut.println("Error adding course.");
-				return;
-			}
-			socketOut.println(reg);
+			socketOut.println(regApp.addRegistration(st, course));
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
