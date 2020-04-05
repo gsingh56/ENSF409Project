@@ -1,6 +1,7 @@
 package clientSide;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -48,7 +49,11 @@ public class RegistrationClient {
 					}
 					System.out.println(input);
 				}
-				input = stdIn.readLine();
+				if(input.equals("#7")) {
+					input = readFromFile();
+				} else {
+					input = stdIn.readLine();
+				}
 				socketOut.println(input);
 				socketOut.flush();
 			}
@@ -57,6 +62,33 @@ public class RegistrationClient {
 		}
 	}
 
+	private String readFromFile() {
+		StringBuilder result = new StringBuilder();
+		System.out.println("Enter a filename:");
+		BufferedReader fileReader = null;
+		try {
+			String fileName = stdIn.readLine();
+			fileReader = new BufferedReader(new FileReader(fileName));
+			String line;
+			while((line = fileReader.readLine()) != null) {
+				result.append(line + " ");
+			}
+		} catch (IOException e) {
+			System.err.println("Error getting fileName");
+			System.err.println(e.getStackTrace());
+		} finally {
+			try {
+				if(fileReader != null) {
+					fileReader.close();
+				}
+			} catch (IOException e) {
+				System.err.println("Error closing file reader");
+				System.err.println(e.getStackTrace());
+			}
+		}
+		return result.toString();
+	}
+	
 	/**
 	 * Runs the client at localhost:3142.
 	 * @param args String[]: arguments given to the program.
