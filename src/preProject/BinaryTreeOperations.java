@@ -70,9 +70,6 @@ public class BinaryTreeOperations implements Runnable{
 			binTree.insert(wordFile.get(0), wordFile.get(1), wordFile.get(2), wordFile.get(3));
 
 		}
-		socketOut.println("update");
-		binTree.print_tree(binTree.root, socketOut);
-		socketOut.println("\0");
 	}
 	
 	// splits the string and insert the node
@@ -111,7 +108,9 @@ public class BinaryTreeOperations implements Runnable{
 	//prints tree directly to printwriter
 	public void printTree() {
 		try {
-			binTree.print_tree(binTree.root,socketOut );
+			socketOut.println("update");
+			binTree.print_tree(binTree.root, socketOut);
+			socketOut.println("\0");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
