@@ -80,6 +80,7 @@ public class GUIApp extends JFrame {
         labelPanel.setLayout(new BorderLayout());
 
         label = new JLabel("An Application to Maintain Student Records");
+        label.setHorizontalAlignment(JLabel.CENTER);
         labelPanel.add(label, BorderLayout.CENTER);
         
         //adds panel to the NORTH of frame
