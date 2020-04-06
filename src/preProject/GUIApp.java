@@ -84,14 +84,13 @@ public class GUIApp extends JFrame {
         labelPanel.add(label, BorderLayout.CENTER);
         
         //adds panel to the NORTH of frame
-        this.add(label,BorderLayout.NORTH);
-       
+        this.add(label,BorderLayout.NORTH);  
     }
 
     /**
      * created an object of JTextArea and adds them to the frame by using a panel
      */
-    private void setTextArea(){
+    private void setTextArea() {
         JPanel textAreaPanel = new JPanel();         // Panel to pack everything together
         textArea = new JTextArea(15, 40);  // text area to print the actual information
         textArea.setEditable(false);
@@ -122,7 +121,7 @@ public class GUIApp extends JFrame {
     /**
      * Creates the objects of JButton and adds them to the frame by using a panel
      */
-    private void setButtons(){
+    private void setButtons() {
     	
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setVisible(true);
@@ -155,17 +154,14 @@ public class GUIApp extends JFrame {
         findButton.addActionListener((ActionEvent e) ->{
         	String ID = JOptionPane.showInputDialog("Enter the ID: ");
         	//if user closes the dialog box, then do nothing
-        	if(ID == null) {
-        		
-        	}
-        	
-        	else {
+        	if(ID != null) {
         		registrationClient.getSocketOut().println(2);
 	        	registrationClient.getSocketOut().println(ID);
 	        	String result = "No result found";
 				try {
 					result = registrationClient.getSocketIn().readLine();
 				} catch (IOException e1) {
+					System.err.println("Error getting ID.");
 					e1.printStackTrace();
 				}
 				JOptionPane.showMessageDialog(this, result);
@@ -175,7 +171,6 @@ public class GUIApp extends JFrame {
         //sends 3 to server 
         browseButton.addActionListener((ActionEvent e) ->{
         	registrationClient.getSocketOut().println(3);
-			
 		});
         
         //populate binary search tree
@@ -183,10 +178,7 @@ public class GUIApp extends JFrame {
         	registrationClient.getSocketOut().println(4);
         	String file = JOptionPane.showInputDialog("Enter the name of the input file: ");
         	registrationClient.getSocketOut().println(file);
-			
 		});
-        
-
     }
 
     /**
@@ -198,7 +190,4 @@ public class GUIApp extends JFrame {
         this.setVisible(false);
         this.setResizable(true);
     }
-
-    
-
 }

@@ -53,7 +53,6 @@ public class ViewInsert extends JFrame{
 		addText();
 		addMainLabel();
 		setGUI();
-	
 	}
 	
 	/**
@@ -77,7 +76,6 @@ public class ViewInsert extends JFrame{
 		
 		//sends "1" to the server and then sends the Data object information to the sever
 		insert.addActionListener((ActionEvent e) ->{
-			
 			registrationClient.getSocketOut().println(1);
 			
 			String st = ID.getText() +" " + faculty.getText()+ " "+ major.getText() +" "+ year.getText();
@@ -85,15 +83,12 @@ public class ViewInsert extends JFrame{
 			
 			transitionMainWindow();
 			clearTextField();
-
 		});
 		
 		// transition back to the main window
 		mainWindow.addActionListener((ActionEvent e) ->{
 			registrationClient.getGUIApp().setVisible(true);
 		});
-		
-	
 	}
 	
 	/**
@@ -129,8 +124,7 @@ public class ViewInsert extends JFrame{
 		textPanel.add(year);
 		
 		//adds panel to the CENTER of the frame
-		add(textPanel, BorderLayout.CENTER);
-		
+		add(textPanel, BorderLayout.CENTER);	
 	}
 	
 	/**
@@ -150,7 +144,7 @@ public class ViewInsert extends JFrame{
 	/**
 	 * setip for the GUI
 	 */
-	public void setGUI(){
+	public void setGUI() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(400,200);
         this.setVisible(false);
@@ -164,19 +158,14 @@ public class ViewInsert extends JFrame{
 		ID.setText("");
 		faculty.setText("");
 		major.setText("");
-		year.setText("");
-		
+		year.setText("");	
 	}
 	
 	/**
 	 * hides the ViewInsert and displays the GUIApp
 	 */
-	public void transitionMainWindow(){
+	public void transitionMainWindow() {
 		setVisible(false);
 		registrationClient.getGUIApp().setVisible(true);
 	}
-	
-
-
-	
 }

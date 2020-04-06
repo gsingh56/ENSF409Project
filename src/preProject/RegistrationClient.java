@@ -119,6 +119,4 @@ public class RegistrationClient {
 		RegistrationClient registrationClient = new RegistrationClient("localhost", 3142);
 		registrationClient.communicate();
 	}
-	
-	
 }
