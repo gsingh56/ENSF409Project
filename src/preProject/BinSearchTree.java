@@ -2,12 +2,12 @@ package preProject;
 
 import java.io.*;
 import javax.swing.JOptionPane;
+
 /**
  * The following class called BinSearchTree creates an empty 
  * tree, and allows the user of the class to insert new nodes into the tree.  
  */
 
- 
 
 class BinSearchTree {
 	
@@ -144,4 +144,25 @@ class BinSearchTree {
 		if (cur.right!=null)
 			print_tree(cur.right,out);
 	} 
+	
+	/**
+	 * Function that returns the binary search tree as a String.
+	 * @return st - the string representation of the Binsearchtree.
+	 */
+	@Override
+	public String toString() {
+		return toStringRec(root);
+	}
+	
+	private String toStringRec(Node node) {
+		String st = "";
+		if(node.left != null) {
+			st = toStringRec(node.left);
+		}
+		st += node.data.toString() + "\n";
+		if(node.right != null) {
+			st += toStringRec(node.right);
+		}
+		return st;
+	}
 }

@@ -10,7 +10,6 @@ public class RegistrationClient {
 	
 	private PrintWriter socketOut;
 	private Socket registrationSocket;
-	private BufferedReader stdIn;
 	private BufferedReader socketIn;
 	private ViewInsert viewInsert;
 	private GUIApp guiApp;
@@ -23,7 +22,7 @@ public class RegistrationClient {
 	public RegistrationClient(String serverName, int portNumber){
 		try {
 			registrationSocket = new Socket(serverName, portNumber);
-			stdIn = new BufferedReader(new InputStreamReader(System.in));
+			new BufferedReader(new InputStreamReader(System.in));
 			socketIn = new BufferedReader(new InputStreamReader(
 				registrationSocket.getInputStream()));
 			socketOut = new PrintWriter(registrationSocket.getOutputStream(), true);
@@ -34,18 +33,34 @@ public class RegistrationClient {
 		}
 	}
 	
+	/**
+	 * returns the PrintWriter object
+	 * @return Printwriter
+	 */
 	public PrintWriter getSocketOut() {
 		return socketOut;
 	}
 	
+	/**
+	 * returns the BufferedReader object
+	 * @return BufferedReader
+	 */
 	public BufferedReader getSocketIn() {
 		return socketIn;
 	}
 	
+	/**
+	 * returns the GUIApp object
+	 * @return GUIApp
+	 */
 	public GUIApp getGUIApp() {
 		return guiApp;
 	}
 	
+	/**
+	 * inserts the ViewInsert object
+	 * @return ViewInsert
+	 */
 	public ViewInsert getViewInsert() {
 		return viewInsert;
 	}
@@ -59,33 +74,31 @@ public class RegistrationClient {
 			while(true){
 				guiApp.setVisible(true);
 				String input = "";
-				while(true) {
+				
 					input = socketIn.readLine();
-					if (input.contains("\0")){
-						System.out.println(input.replace("\0", ""));
-						break;
-					}
+					
+					//if output from server has "update", it calls the update method
 					if(input.equals("update")) {
 						update();
 					}
-					if(input.toUpperCase().equals("QUIT")){
-						return;
-					}
+					
 					System.out.println(input);
-				}
-				input = stdIn.readLine();
-				socketOut.println(input);
-				socketOut.flush();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Prints the tree contents in the text area of GUIApp
+	 */
 	private void update() {
 		guiApp.clear();
 		try {
 			String input = "";
+			
+			//prints the contents until it hits "\0"
 			while(true) {
 				input = socketIn.readLine();
 				if(input.contains("\0")) {
@@ -106,6 +119,4 @@ public class RegistrationClient {
 		RegistrationClient registrationClient = new RegistrationClient("localhost", 3142);
 		registrationClient.communicate();
 	}
-	
-	
 }

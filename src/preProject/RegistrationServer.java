@@ -2,16 +2,27 @@ package preProject;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * Server of the program
+ * @author Gurmukh Singh
+ *
+ */
 public class RegistrationServer {
+	/**
+	 * server socket
+	 */
 	private ServerSocket serverSocket;
+	
+	/**
+	 * thread pool 
+	 */
 	private ExecutorService threadPool;
 
 	/**
-	 * Construct a Server with a specified port number to run the game on.
+	 * Construct a Server with a specified port number.
 	 */
 	public RegistrationServer(int port) {
 		try {
@@ -23,6 +34,9 @@ public class RegistrationServer {
 		}
 	}
 
+	/**
+	 * Passes the socket to the BinaryTreeOperations object
+	 */
 	private void runServer() {
 		try {
 			while(true){
@@ -37,7 +51,10 @@ public class RegistrationServer {
 		}
 	}
 
-
+	/**
+	 * main method of server
+	 * @param args 
+	 */
 	public static void main(String [] args) {
 		RegistrationServer registrationServer = new RegistrationServer(3142);
 		registrationServer.runServer();
