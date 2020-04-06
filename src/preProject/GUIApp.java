@@ -92,6 +92,7 @@ public class GUIApp extends JFrame {
         insertButton.addActionListener((ActionEvent e) ->{
         	registrationClient.getSocketOut().println(1);
 			registrationClient.getViewInsert().setVisible(true);
+			setVisible(false);
 			
 		});
         

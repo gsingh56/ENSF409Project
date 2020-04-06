@@ -59,23 +59,23 @@ public class RegistrationClient {
 			while(true){
 				guiApp.setVisible(true);
 				String input = "";
-				while(true) {
+				//while(true) {
 					input = socketIn.readLine();
-					if (input.contains("\0")){
+					/*if (input.contains("\0")){
 						System.out.println(input.replace("\0", ""));
 						break;
-					}
+					}*/
 					if(input.equals("update")) {
 						update();
 					}
-					if(input.toUpperCase().equals("QUIT")){
+					/*if(input.toUpperCase().equals("QUIT")){
 						return;
-					}
+					}*/
 					System.out.println(input);
-				}
-				input = stdIn.readLine();
+				//}
+				/*input = stdIn.readLine();
 				socketOut.println(input);
-				socketOut.flush();
+				socketOut.flush();*/
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

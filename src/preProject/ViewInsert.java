@@ -41,7 +41,12 @@ public class ViewInsert extends JFrame{
 		insert.addActionListener((ActionEvent e) ->{
 			String st = ID.getText() +" " + faculty.getText()+ " "+ major.getText() +" "+ year.getText();
 			registrationClient.getSocketOut().println(st);
-			
+			setVisible(false);
+			ID.setText("");
+			faculty.setText("");
+			major.setText("");
+			year.setText("");
+			registrationClient.getGUIApp().setVisible(true);
 		});
 		
 		mainWindow.addActionListener((ActionEvent e) ->{

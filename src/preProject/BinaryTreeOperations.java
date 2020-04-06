@@ -98,11 +98,13 @@ public class BinaryTreeOperations implements Runnable{
 		
 		String st = "Key not find!";
 		Node temp = binTree.find(binTree.root, ID);
-		if(temp != null)
+		if(temp != null) {
+			System.out.println("Not null");
 			 st = temp.toString();
+		}
 		socketOut.println("found");
 		socketOut.println(st);
-		socketOut.println("\0");
+		//socketOut.println("\0");
 	}
 	
 	//prints tree directly to printwriter
