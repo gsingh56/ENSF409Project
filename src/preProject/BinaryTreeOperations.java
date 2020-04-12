@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * This class handles the operations on the binary search trees and socket from the server. This class
  * receives the user input from the server and calls the appropriate method from the class BinarySearchTree.
- * @author Gurmukh Singh
+ * @author Gurmukh Singh, Dillon Sahadevan and Eduardo Benetti
  * @version 1.0
  * @since 05 April, 2020
  *

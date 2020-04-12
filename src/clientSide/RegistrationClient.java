@@ -49,7 +49,7 @@ public class RegistrationClient {
 					}
 					System.out.println(input);
 				}
-				if(input.equals("#7")) {
+				if(input.equals("Reading from file\0")) {
 					input = readFromFile();
 				} else {
 					input = stdIn.readLine();

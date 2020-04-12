@@ -29,7 +29,7 @@ public class FrontEnd implements Runnable
 	}
 	
 	//For testing
-	public void initialize()
+	private void initialize()
 	{
 		regApp.addStudent("John", 1);
 		regApp.addStudent("Violet", 2);
@@ -82,7 +82,7 @@ public class FrontEnd implements Runnable
 			String name = socketIn.readLine();
 			socketOut.println("Enter the course number:\0");
 			int num = Integer.parseInt(socketIn.readLine());
-			regApp.searchCatalogue(name, num);
+			socketOut.println(regApp.searchCatalogue(name, num));
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -108,7 +108,7 @@ public class FrontEnd implements Runnable
 				socketOut.println("Error course not found.");
 				return;
 			}
-			socketOut.println(regApp.addRegistration(st, course));
+			socketOut.println(regApp.addRegistration(st, course) + "\0");
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -157,7 +157,7 @@ public class FrontEnd implements Runnable
 	}
 
 	private void readToTree() {
-		socketOut.println("#7");
+		socketOut.println("Reading from file\0");
 		String input = null;
 		try {
 			input = socketIn.readLine();
@@ -218,6 +218,7 @@ public class FrontEnd implements Runnable
 	}
 
 	public void run() {
+		initialize();
 		menu();
 	}
 }

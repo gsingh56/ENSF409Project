@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 /**
  * This class creates a secondary GUI for the program and handle its functionality.
  * 
- * @author Gurmukh Singh
+ * @author Gurmukh Singh, Dillon Sahadevan and Eduardo Benetti
  * @version 1.0
  * @since 05 April, 2020
  */

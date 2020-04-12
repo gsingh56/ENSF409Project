@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * Server of the program
- * @author Gurmukh Singh
+ * @author Gurmukh Singh, Dillon Sahadevan and Eduardo Benetti
  *
  */
 public class RegistrationServer {

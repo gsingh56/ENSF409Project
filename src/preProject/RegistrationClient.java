@@ -6,6 +6,13 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+/**
+ *  This class handles most of the backend communications the client side needs with the server.
+ * @author Gurmukh Singh, Dillon Sahadevan and Eduardo Benetti
+ * @version 1.0
+ * @since 05 April, 2020
+ */
+
 public class RegistrationClient {
 	
 	private PrintWriter socketOut;
