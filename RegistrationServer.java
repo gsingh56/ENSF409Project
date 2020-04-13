@@ -1,4 +1,4 @@
-package serverSide;
+
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -26,9 +26,10 @@ public class RegistrationServer {
 	private void runServer() {
 		try {
 			while(true){
-				FrontEnd frontEnd = new FrontEnd(serverSocket.accept());
+				
+				BinaryTreeOperations binTree = new  BinaryTreeOperations(serverSocket.accept());
 				System.out.println("Server has established a connection.");
-				threadPool.execute(frontEnd);
+				threadPool.execute(binTree);
 			}
 		} catch (Exception e){
 			e.printStackTrace();

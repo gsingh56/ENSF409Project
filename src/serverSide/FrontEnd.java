@@ -12,6 +12,7 @@ public class FrontEnd implements Runnable
 	private Socket socket;
 	private PrintWriter socketOut;
 	private BufferedReader socketIn;
+	private BinSearchTree studentRecords;
 
 	public FrontEnd(Socket s){
 		socket = s;
@@ -23,11 +24,12 @@ public class FrontEnd implements Runnable
 			System.err.println("Error getting communcation methods");
 			System.err.println(e.getStackTrace());
 		}
+		studentRecords = new BinSearchTree();
 		regApp = new RegistrationApp();
 	}
 	
 	//For testing
-	public void initialize()
+	private void initialize()
 	{
 		regApp.addStudent("John", 1);
 		regApp.addStudent("Violet", 2);
@@ -57,7 +59,9 @@ public class FrontEnd implements Runnable
 		socketOut.println("3. Remove course from student's courses.");
 		socketOut.println("4. View all courses in the catalogue.");
 		socketOut.println("5. View all courses taken by the student.");
-		socketOut.println("6. Quit");
+		socketOut.println("6. Create tree from file.");
+		socketOut.println("7. Print student records");
+		socketOut.println("8. Quit");
 	}
 
 	private void enterToContinue()
@@ -78,7 +82,7 @@ public class FrontEnd implements Runnable
 			String name = socketIn.readLine();
 			socketOut.println("Enter the course number:\0");
 			int num = Integer.parseInt(socketIn.readLine());
-			regApp.searchCatalogue(name, num);
+			socketOut.println(regApp.searchCatalogue(name, num));
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -104,7 +108,7 @@ public class FrontEnd implements Runnable
 				socketOut.println("Error course not found.");
 				return;
 			}
-			socketOut.println(regApp.addRegistration(st, course));
+			socketOut.println(regApp.addRegistration(st, course) + "\0");
 		} catch (IOException e) {
 			System.err.println("Communication error");
 			System.err.println(e.getStackTrace());
@@ -152,6 +156,21 @@ public class FrontEnd implements Runnable
 		}
 	}
 
+	private void readToTree() {
+		socketOut.println("Reading from file\0");
+		String input = null;
+		try {
+			input = socketIn.readLine();
+		} catch (IOException e) {
+			System.err.println("Error getting file data");
+			System.err.println(e.getStackTrace());
+		}
+		String[] data = input.split(" ");
+		for(int i = 0; i < data.length - 3; i += 4) {
+			studentRecords.insert(data[i], data[i+1], data[i+2], data[i+3]);
+		}
+	}
+	
 	public void menu()
 	{
 		try {
@@ -179,6 +198,11 @@ public class FrontEnd implements Runnable
 						viewStudentCourses();
 						break;
 					case 6:
+						readToTree();
+						break;
+					case 7:
+						studentRecords.print_tree(studentRecords.root, socketOut);
+					case 8:
 						System.exit(0);
 						break;
 					default:
@@ -194,6 +218,7 @@ public class FrontEnd implements Runnable
 	}
 
 	public void run() {
+		initialize();
 		menu();
 	}
 }
