@@ -1,0 +1,15 @@
+course ENGG 233 1 100
+course PHYS 259 2 40
+course ENSF 409 3 40 
+course ENGG 225 4 50
+course ENGG 202 5 50
+students John 1 ENGG 233
+students Violet 2 ENGG 233
+students Karl 3 PHYS 259
+students Lara 4 ENGG 202
+students Kane 5 ENGG 225
+students Jude 6 ENGG 233
+students Adam 7 ENGG 202
+students Sarah 8 ENSF 409
+completed-course Sarah 8 ENGG 233
+pre-req ENSF 409 ENGG 233
